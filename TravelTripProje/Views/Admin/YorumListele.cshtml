@@ -1,0 +1,32 @@
+﻿@using TravelTripProje.Models.Siniflar
+@model List<Yorumlar>
+@{
+    ViewBag.Title = "YorumListele";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Yorum Listesi</h2>
+
+<table class="table table-bordered" style="table-layout: fixed;">
+    <tr>
+        <th>ID</th>
+        <th>Kullanıcı</th>
+        <th>Mail</th>
+        <th>Yorum</th>
+        <th>Blog</th>
+        <th>Güncelle</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.ID</td>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.KullaniciAdi</td>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.Mail</td>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.Yorum</td>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.Blog.Baslik</td>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="/Admin/YorumGetir/@x.ID" class="btn btn-warning">Güncelle</a></td>
+            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><a href="/Admin/YorumSil/@x.ID" class="btn btn-danger">Sil</a></td>
+        </tr>
+    }
+</table>

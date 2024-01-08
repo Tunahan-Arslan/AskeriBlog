@@ -1,0 +1,240 @@
+﻿@model TravelTripProje.Models.Siniflar.BlogYorum
+@{
+    ViewBag.Title = "BlogDetay";
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Askeri Blog Sayfası</title>
+    <link href="~/web2/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="~/web2/css/style.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Personal Blog Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!----webfonts---->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:100,400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,300italic' rel='stylesheet' type='text/css'>
+    <!----//webfonts---->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--end slider -->
+
+</head>
+<body>
+    <style>
+        .messageMedias {
+            background-color: #ffffff00;
+            position: absolute;
+            bottom: 130px;
+            margin-left: -155px;
+            display: flex;
+            width: 150px;
+            height: 150px;
+            flex-wrap: nowrap;
+            overflow-y: hidden;
+            overflow-x: auto;
+        }
+
+            .messageMedias .KullaniciFoto {
+                background-color: #ffffff00;
+                position: relative;
+            }
+
+                .messageMedias .KullaniciFoto > div {
+                    background-color: #ffffff00;
+                    position: relative;
+                }
+
+            .messageMedias .mediaName {
+                position: absolute;
+                bottom: 20px;
+                color: #fff;
+                width: 100%;
+                text-align: center;
+                text-overflow: ellipsis;
+                background-color: #000000a8;
+            }
+
+            .messageMedias .mediaCancel {
+                position: absolute;
+                right: 0;
+                color: red;
+                padding: 10px;
+                cursor: pointer;
+                background-color: #000000a8;
+            }
+    </style>
+    <!---header---->
+    <div class="header">
+    </div>
+    <!--/header-->
+    <div class="single">
+        <div class="container">
+            <div class="col-md-8 single-main">
+                <div class="single-grid">
+                    @foreach (var x in Model.Deger1)
+                    {
+                        <img src="@x.BlogImage" alt="" style="margin-bottom: 20px; width: 912px; height: 412px;" />
+                        <b>@x.Baslik</b>
+                        <p>
+                            @x.Aciklama <b>@x.Tarih.ToString("dd.MM.yyyy")</b>
+                        </p>
+                    }
+                </div>
+                @foreach (var y in Model.Deger2)
+                {
+
+
+                    <ul class="comment-list">
+                        <li>
+                            @if (!string.IsNullOrEmpty(y.KullaniciFoto))
+                            {
+                                <img src="@Url.Content(y.KullaniciFoto)" class="img-responsive" alt=""><b>@y.KullaniciAdi :</b>
+                            }
+                            <div class="desc" style="width: 100%; word-wrap: break-word;">
+                                <p style="width:100%;">@y.Yorum</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                    </ul>
+                }
+                <div class="content-form">
+                    <h3>Bir yorum yapın</h3>
+                    @using (Html.BeginForm("AddYorum", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="Blogid" value="@Model.Deger1.First().ID" />
+                        <input type="text" name="KullaniciAdi" placeholder="Kullanıcı Adı" required style="border:1px solid black" />
+                        <input type="text" name="Mail" placeholder="E-Posta Adresi" required style="border:1px solid black" />
+                        <!--Dosya Yükleme Deneme-->
+                        <div class="messageMedias" id="messageMedias">
+                            <div class="KullaniciFoto">
+                                <div>
+                                    <img src="" alt="" class="mediaContent" style="height:150px; border-radius:50%;" />
+                                    <!--<p class="mediaName">media name</p>-->
+                                    <i class="fa fa-times mediaCancel"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="file" name="KullaniciFoto" id="KullaniciFoto" style="display: none" required />
+                        <a href="#" onclick="UploadFile(event)" style="border:1px solid black; padding:5px 25px; background-color:deepskyblue;color:white;">
+                            <i class="fa-solid fa-image" style="color:black; margin:5px"></i>Profil Fotoğrafı Yükle
+                        </a>
+                        <!----> <textarea name="Yorum" placeholder="Yorum yazınız.." required style="border:1px solid black"></textarea>
+                        <button type="submit" style="border:1px solid black" class="btn btn-info">Gönder</button>
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-4 side-content">
+                <div class="recent">
+                    <h3><b>Son Bloglar</b></h3>
+                    @foreach (var x in Model.Deger3)
+                    {
+                        <ul>
+                            <li><a href="/Blog/BlogDetay/@x.ID">@x.Baslik</a></li>
+                        </ul>
+                    }
+                </div>
+                <div class="comments">
+                    <h3><b>Son Yorumlar</b></h3>
+                    <ul>
+                        @foreach (var x in Model.Deger2)
+                        {
+                            <li style="width: 100%; word-wrap: break-word;"><a href="#">@x.KullaniciAdi </a> : @x.Yorum</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--Dosya Yükleme Deneme-->
+    <script>
+        function UploadFile(event) {
+            event.preventDefault();
+            document.getElementById("KullaniciFoto").click();
+        }
+        document
+            .getElementById("KullaniciFoto")
+            .addEventListener("change", function () {
+                let messsageMedias = document.getElementById("messageMedias");
+                messsageMedias.innerHTML = "";
+                for (let i = 0; i < this.files.length; i++) {
+                    var dosya = this.files[i]; // Seçilen dosya
+                    console.log(dosya);
+                    const reader = new FileReader();
+
+                    reader.addEventListener("load", function () {
+                        //img.setAttribute('src', reader.result);
+                        var elementId = Array.from(
+                            messsageMedias.innerHTML.matchAll("KullaniciFoto")
+                        ).length;
+                        if (dosya.type.includes("pdf")) {
+                            var KullaniciFoto = `<div class=\"KullaniciFoto\">\n        <div>\n        <img src='../Images/png/fileLogo.png'\n        alt='${dosya.name}'\n        class=\"mediaContent\"\n        height=\"150px\"\n        />\n        <p class=\"mediaName\">${dosya.name}</p>\n        <i class=\"fa fa-x mediaCancel\" onclick="DeleteFile('${dosya.name}')"></i>\n      </div>\n    </div>`;
+                            messsageMedias.innerHTML += KullaniciFoto;
+                            return;
+                        }
+                        var KullaniciFoto = `<div class=\"KullaniciFoto\">\n        <div>\n        <img src='${reader.result}'\n        alt='${dosya.name}'\n        class=\"mediaContent\"\n        height=\"150px\"\n        />\n        <p class=\"mediaName\">${dosya.name}</p>\n        <i class=\"fa fa-x mediaCancel\" onclick="DeleteFile('${dosya.name}')"></i>\n      </div>\n    </div>`;
+                        messsageMedias.innerHTML += KullaniciFoto;
+                        console.log(KullaniciFoto);
+                    });
+                    reader.readAsDataURL(dosya);
+
+                    if (dosya) {
+                        console.log("Seçilen dosya adı: " + dosya.name);
+                        console.log("Dosya türü: " + dosya.type);
+                        console.log("Dosya boyutu: " + dosya.size + " bytes");
+                    } else {
+                        console.log("Dosya seçilmedi.");
+                    }
+                }
+            });
+
+        function DeleteFile(fileName) {
+            let files = document.getElementById("KullaniciFoto").files;
+            let deletedFiles = Array.from(files).filter((x) => x.name == fileName);
+            console.log(files);
+            console.log(fileName);
+            console.log(deletedFiles);
+            //document.getElementById("KullaniciFoto").files=Array.from(files).filter(x=>x.name!=fileName)
+            let dt = new DataTransfer();
+            Array.from(files)
+                .filter((x, index) => x.name != fileName)
+                .forEach((file) => {
+                    dt.items.add(file);
+                });
+            document.getElementById("KullaniciFoto").files = dt.files;
+            console.log(files);
+            //document.getElementById("KullaniciFoto").onchange();
+            let messsageMedias = document.getElementById("messageMedias");
+            messsageMedias.innerHTML = "";
+            for (let i = 0; i < dt.files.length; i++) {
+                var dosya = dt.files[i]; // Seçilen dosya
+                console.log(dosya);
+                const reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    //img.setAttribute('src', reader.result);
+                    var KullaniciFoto = `<div class=\"KullaniciFoto\">\n        <div>\n        <img src='${reader.result}'\n        alt='${dosya.name}'\n        class=\"mediaContent\"\n        height=\"150px\"\n        />\n        <p class=\"mediaName\">${dosya.name}</p>\n        <i class=\"fa fa-x mediaCancel\" onclick="DeleteFile('${dosya.name}')"></i>\n      </div>\n    </div>`;
+                    messsageMedias.innerHTML += KullaniciFoto;
+                    console.log(KullaniciFoto);
+                });
+                reader.readAsDataURL(dosya);
+            }
+        }
+    </script>
+    <!---->
+</body>
+</html>
+

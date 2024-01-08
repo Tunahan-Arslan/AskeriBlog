@@ -1,0 +1,69 @@
+﻿@using TravelTripProje.Models.Siniflar
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_TestLayout.cshtml";
+}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Free Easy-Trip Website Template | Contact :: w3layouts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="~/web/css/style.css" type="text/css" media="all" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="~/web/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+    <div class="contact">
+        <div class="wrap">
+            <div class="contact-top">
+                <h3>İletişim Bilgileri</h3>
+                <p>Aşağıdaki formu doldurarak şikayetinizi, isteğinizi veya önerinizi belirtebilirsiniz.</p>
+            </div>
+            <div class="form">
+                <form class="cmxform" id="contactForm" method="post" action="/Iletisim/IletisimMesaj">
+                    <div>
+                        <input type="text" name="AdSoyad" class="textbox" placeholder="İsim:" required>
+                    </div>
+                    <div>
+                        <input type="text" name="Mail" class="textbox" placeholder="E-Posta:" required>
+                    </div>
+                    <div>
+                        <input type="text" name="Konu" class="textbox" placeholder="Konu:" required>
+                    </div>
+                    <div>
+                        <div class="form1">
+                            <div>
+                                <textarea name="Mesaj" placeholder="Mesaj:" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" value="Gönder" class="read" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="clear"></div>
+            <div class="contact-bottom">
+                <div class="contact-left">
+                    <div class="contact-add">
+                        <h3>İletişim Bilgileri</h3>
+                        <br />
+                        <p>Telefon: 0538 295 6848</p>
+                        <p>E-Posta:<a href="mailto:tuniaarslan27@gmail.com">tuniaarslan27@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</body>
+</html>
